@@ -1,0 +1,67 @@
+////////welcome.html///////
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <div>
+        <header class="bar bar-nav">
+            <h1 class="title">Welcome <span id="user"> </span></h1>
+        </header>
+        
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="scripts/welcome.js"></script>
+    <script type="text/javascript" src="scripts/ratchet.js"></script>
+
+</body>
+    <script>
+        ////////////welcome.js/////////
+        document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+        
+        
+        function onDeviceReady() {
+            ajax();
+        };
+        
+        function onPause() {
+            // TODO: This application has been suspended. Save application state here.
+        };
+        
+        function onResume() {
+            // TODO: This application has been reactivated. Restore application state here.
+        };
+        
+        function ajax() {
+        
+            console.log(window.localStorage.getItem("username"))
+        
+            $.ajax({
+                type: 'POST',
+                url: 'http://sms.dotvoice.com/igniter/newpage/login',
+                data: {
+                    username: window.localStorage.getItem("username")
+                },
+                success: function (data) {
+                    var parsed = JSON.parse(data);
+                    console.log(parsed);
+                    console.log(parsed.username);
+        
+                    $('#user').html(parsed.username);
+        
+                },
+                error: function (error) {
+                    console.log(error.responseText);
+                }
+            });
+        }
+
+    </script>>
+
+</html>
+
