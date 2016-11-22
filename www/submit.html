@@ -1,0 +1,135 @@
+
+
+/////////////submit.html////////////
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration</title>
+</head>
+<body style="background-color: skyblue">
+
+    <div class="container">
+        <form id="registration" name="registration">
+
+      
+                Username: <input type="text" id="username" class="colorme" name="username" placeholder="username">
+            
+                <br>
+            Password: <input type="text" id="password" name="password" placeholder="password"><br>
+            First Name: <input type="text" id="firstname" name="firstname" placeholder="firstname"><br>
+            Last Name: <input type="text" id="lastname" name="lastname" placeholder="lastname"><br>
+            <select id="timezone" name="timezone" class="form-control">
+                <option value="Eastern">(UTC -5:00) Eastern Standard Time</option>
+                <option value="Central">(UTC -6:00) Central Standard Time</option>
+                <option value="Mountain">(UTC -7:00) Mountain Standard Time</option>
+                <option value="Pacific">(UTC -8:00) Pacific Standard Time</option>
+                <option value="Alaska">(UTC -9:00) Alaska Standard Time</option>
+                <option value="Hawaiian">(UTC -10:00) Hawaiian Standard Time</option>
+            </select><br>
+            <input type="checkbox" id="sub" name="sub">Subscribe News Offer
+            <br><br>
+
+            <button class="btn btn-positive">
+                Register
+            </button>
+            
+        </form>
+    </div>
+
+    <div><textarea id="result1" name="result1"></textarea></div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="scripts/submit.js"></script>
+</body>
+<script>
+    
+////////////////submit.js////////
+(function () {
+
+    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+
+    function onDeviceReady() {
+
+        $('#registration').validate({
+            rules: {
+                username: {
+                    required: true,
+                    maxlength: 100
+                },
+                password: {
+                    required: true,
+                    maxlength: 100
+                },
+                firstname: {
+                    required: true,
+                    maxlength:45
+                },
+                lastname: {
+                    required: true,
+                    maxlength: 45
+                },
+                timezone: {
+                    required: true
+                },
+                sub: {
+                    required:true
+                }
+
+            },
+            submitHandler: function () {
+                console.log('submitted')
+                ajax();
+            },
+            invalidHandler: function () {
+                console.log('Validation error');
+            }
+        });
+
+    };
+
+    function onPause() {
+        // TODO: This application has been suspended. Save application state here.
+    };
+
+    function onResume() {
+        // TODO: This application has been reactivated. Restore application state here.
+    };
+
+    function ajax() {
+
+        $.ajax({
+            type: 'post',
+            url: 'http://sms.dotvoice.com/igniter/newpage/settings',
+            data: {
+                username: $('#username').val(),
+                password: $('#password').val(),
+                firstname: $('#firstname').val(),
+                lastname: $('#lastname').val(),
+                timezone: $('#timezone').val(),
+                sub: $('#sub').val()
+            },
+            success: function (data) {
+                window.location = "submit.html";
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+});
+///////Notes//////////
+    
+    
+//	array(
+//		0 => array('1', 'Username', 'Alex', 'Firstname', 'Lastname', 'Time:Mountain', 'Subscribe')
+//      1 => array('2', 'Sara', 'A', 'Sara', 'Rose', 'Time:Pacific', 'Subscribe')
+//	}
+	
+</script>>
+
+</html>
