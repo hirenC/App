@@ -6,9 +6,14 @@
 </head>
 <body>
     <div>
-        <header class="bar bar-nav">
-            <h1 class="title">Welcome <span id="user"> </span></h1>
-        </header>
+        <form id="welcome" name="welcome">  
+         <h1><span id="user"></span></h1>
+            <p><span id="pass"></span></p>
+            <p><span id="first"></span></p>
+            <p><span id="last"></span></p>
+            <p><span id="time"></span></p>
+            <p><span id="sub"></span></p>
+      </form> 
         
     </div>
     <script type="text/javascript" src="cordova.js"></script>
@@ -52,7 +57,12 @@
                     console.log(parsed);
                     console.log(parsed.username);
         
-                    $('#user').html(parsed.username);
+                    $('#user').html("Welcome " + parsed.username);
+                    $('#pass').html("Your password is: " + parsed.password);
+                    $('#first').html("Your first name is: " + parsed.firstName);
+                    $('#last').html("Your last name is: " + parsed.lastName);
+                    $('#time').html("Your current timezone is: " + parsed.timezone);
+                    $('#sub').html("Signed up for information: " + parsed.subscribe);
         
                 },
                 error: function (error) {
