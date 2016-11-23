@@ -10,22 +10,32 @@
 
     <div class="container">
         <form id="registration" name="registration">
-
-      
-                Username: <input type="text" id="username" class="colorme" name="username" placeholder="username">
-            
-                <br>
-            Password: <input type="text" id="password" name="password" placeholder="password"><br>
-            First Name: <input type="text" id="firstname" name="firstname" placeholder="firstname"><br>
-            Last Name: <input type="text" id="lastname" name="lastname" placeholder="lastname"><br>
-            <select id="timezone" name="timezone" class="form-control">
-                <option value="Eastern">(UTC -5:00) Eastern Standard Time</option>
-                <option value="Central">(UTC -6:00) Central Standard Time</option>
-                <option value="Mountain">(UTC -7:00) Mountain Standard Time</option>
-                <option value="Pacific">(UTC -8:00) Pacific Standard Time</option>
-                <option value="Alaska">(UTC -9:00) Alaska Standard Time</option>
-                <option value="Hawaiian">(UTC -10:00) Hawaiian Standard Time</option>
-            </select><br>
+		<div class="input-row">
+			<label>Username:</label>
+			<input type="text" id="username" name="username" placeholder="username">
+		</div>
+		<div class="input-row">
+			<label>Password:</label>
+			<input type="text" id="password" name="password" placeholder="password">
+		</div>
+		<div class="input-row">
+			<label>First Name:</label>
+			<input type="text" id="firstname" name="firstname" placeholder="firstname">
+		</div>
+		<div class="input-row">
+			<label>Last Name:</label>
+			<input type="text" id="lastname" name="lastname" placeholder="lastname">
+		</div>
+		<div>
+			<select id="timezone" name="timezone" class="form-control">
+			    <option value="Eastern">(UTC -5:00) Eastern Standard Time</option>
+			    <option value="Central">(UTC -6:00) Central Standard Time</option>
+			    <option value="Mountain">(UTC -7:00) Mountain Standard Time</option>
+			    <option value="Pacific">(UTC -8:00) Pacific Standard Time</option>
+			    <option value="Alaska">(UTC -9:00) Alaska Standard Time</option>
+			    <option value="Hawaiian">(UTC -10:00) Hawaiian Standard Time</option>
+			</select>
+		</div>
             <input type="checkbox" id="sub" name="sub">Subscribe News Offer
             <br><br>
 
@@ -47,9 +57,7 @@
 <script>
     
 ////////////////submit.js////////
-(function () {
-
-    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
     function onDeviceReady() {
 
@@ -73,12 +81,8 @@
                 },
                 timezone: {
                     required: true
-                },
-                sub: {
-                    required:true
                 }
-
-            },
+	    },
             submitHandler: function () {
                 console.log('submitted')
                 ajax();
@@ -112,7 +116,8 @@
                 sub: $('#sub').val()
             },
             success: function (data) {
-                window.location = "submit.html";
+		    var parsed = JSON.parse(data); 
+                // window.location = "submit.html";
 
             },
             error: function (error) {
@@ -120,8 +125,6 @@
             }
         });
     }
-
-});
 ///////Notes//////////
     
     
